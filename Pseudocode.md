@@ -1,12 +1,12 @@
 Constants: Deck of cards as an object. 
   const DECK {
-    2 of Hearts: 2,
-    2 of Diamonds: 2,
+    twoHearts: 2,
+    twoDiamonds: 2,
     .
     .
     .
-    King of Spades: 10,
-    King of Clubs: 10,
+    kingSpades: 10,
+    kingClubs: 10,
   };
   PLAYERHAND = [];
   DEALERHAND = [];
