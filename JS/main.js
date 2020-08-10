@@ -4,12 +4,16 @@ const ranks = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', '
 
 // Build a 'master' deck of 'card' objects used to create shuffled decks
 const masterDeck = buildMasterDeck();
+
 /*----- app's state (variables) -----*/
 let shuffledDeck;
-const playerHand;
-const dealerHand;
+let playerHand;
+let dealerHand;
+
 /*----- cached element references -----*/
+
 /*----- event listeners -----*/
+
 /*----- functions -----*/
 function buildMasterDeck() {
   const deck = [];
@@ -38,11 +42,13 @@ function renderShuffledDeck() {
     shuffledDeck.push(tempDeck.splice(rndIdx, 1)[0]);
   }
   // renderDeckInContainer(shuffledDeck, shuffledContainer);
-  // return shuffledDeck;
+  return shuffledDeck;
 }
 
 renderShuffledDeck();
 
-function dealCard() {
-  shuffledDeck.pop();
+function dealCards() {
+  playerHand = shuffledDeck.splice(-2, 2);
+  dealerHand = shuffledDeck.splice(-2, 2);
 }
+
