@@ -49,12 +49,12 @@ function dealDealerCards() {
   return dealerHand;
 }
 
-function gameStart() {
-  renderShuffledDeck();
-  dealPlayerCards();
-  dealDealerCards();
-  return;
-}
+// function gameStart() {
+//   renderShuffledDeck();
+//   dealPlayerCards();
+//   dealDealerCards();
+//   return;
+// }
 
 function playerHit() {
   let newPlayerHand = playerHand.concat(shuffledDeck.splice(-1, 1));
@@ -69,3 +69,7 @@ function dealerHit() {
 }
 
 //stand ends player turn, starts dealer turn
+
+function getWinner() {
+  
+}
