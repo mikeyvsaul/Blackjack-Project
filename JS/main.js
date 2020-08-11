@@ -49,12 +49,11 @@ function dealDealerCards() {
   return dealerHand;
 }
 
-// function gameStart() {
-//   renderShuffledDeck();
-//   dealPlayerCards();
-//   dealDealerCards();
-//   return;
-// }
+function gameStart() {
+  renderShuffledDeck();
+  dealPlayerCards();
+  dealDealerCards();
+}
 
 function playerHit() {
   let newPlayerHand = playerHand.concat(shuffledDeck.splice(-1, 1));
@@ -73,3 +72,7 @@ function dealerHit() {
 function getWinner() {
   
 }
+
+let playerHandValue = playerHand.reduce(function(a, b) {
+  return a + b;
+}, 0)
