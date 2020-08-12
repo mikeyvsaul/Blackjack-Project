@@ -12,6 +12,7 @@ let dealerHand;
 /*----- cached element references -----*/
 const playerHandContainer = document.getElementById('player-card-container');
 const dealerHandContainer = document.getElementById('dealer-card-container');
+const messageBox = document.querySelector('message');
 
 /*----- event listeners -----*/
 document.getElementById('hit').addEventListener('click', playerHit);
