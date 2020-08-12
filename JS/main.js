@@ -10,10 +10,12 @@ let playerHand;
 let dealerHand;
 
 /*----- cached element references -----*/
+const playerHandContainer = document.getElementById('player-card-container');
+const dealerHandContainer = document.getElementById('dealer-card-container');
 
 /*----- event listeners -----*/
-let playerHitButton = document.getElementById('hit').addEventListener('click', playerHit);
-let playerStand = document.getElementById('stand').addEventListener('click', dealerHit);
+document.getElementById('hit').addEventListener('click', playerHit);
+document.getElementById('stand').addEventListener('click', dealerHit);
 
 /*----- functions -----*/
 function buildMasterDeck() {
@@ -29,7 +31,7 @@ function buildMasterDeck() {
   return deck;
 };
 
-function renderShuffledDeck() {
+function createShuffledDeck() {
   const tempDeck = [...masterDeck];
   shuffledDeck = [];
   while (tempDeck.length) {
@@ -39,20 +41,28 @@ function renderShuffledDeck() {
   return shuffledDeck;
 };
 
-// renderShuffledDeck();
+function renderHandInContainer(hand, container) {
+  container.innerHTML = '';
+  const cardsHtml = hand.reduce(function (html, card) {
+    return html + `<div class="card ${card.face}"></div>`;
+  }, '');
+  container.innerHTML = cardsHtml;
+}
 
 function dealPlayerCards() {
   playerHand = shuffledDeck.splice(-2, 2);
+  renderHandInContainer(playerHand, playerHandContainer);
   return playerHand;
 };
 
 function dealDealerCards() {
   dealerHand = shuffledDeck.splice(-2, 2);
+  renderHandInContainer(dealerHand, dealerHandContainer);
   return dealerHand;
 };
 
 function gameStart() {
-  renderShuffledDeck();
+  createShuffledDeck();
   dealPlayerCards();
   dealDealerCards();
 };
@@ -65,9 +75,18 @@ function handTotal(hand) {
   return total;
 };
 
+function checkIfBust() {
+  if (handTotal(playerHand) > 21) {
+    console.log('player busts');
+  } else if (handTotal(dealerHand) > 21) {
+    console.log('dealer busts');
+  }
+};
+
 function playerHit() {
   let newPlayerHand = playerHand.concat(shuffledDeck.splice(-1, 1));
   playerHand = newPlayerHand;
+  renderHandInContainer(playerHand, playerHandContainer);
   console.log('hit');
   checkIfBust();
   return playerHand;
@@ -76,22 +95,16 @@ function playerHit() {
 function dealerHit() {
   let newDealerHand = dealerHand.concat(shuffledDeck.splice(-1, 1));
   dealerHand = newDealerHand;
+  renderHandInContainer(dealerHand, dealerHandContainer);
+  checkIfBust();
   console.log('dealer hit');
   return dealerHand;
 };
-
-//stand ends player turn, starts dealer turn
 
 function getWinner() {
   if (handTotal(hand) === 21) {
     console.log('blackjack');
   }
-}
-
-function checkIfBust() {
-  if (handTotal(playerHand) > 21) {
-    console.log('player busts');
-  } 
 }
 
 gameStart();
