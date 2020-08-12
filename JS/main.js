@@ -25,7 +25,7 @@ function buildMasterDeck() {
     });
   });
   return deck;
-}
+};
 
 function renderShuffledDeck() {
   const tempDeck = [...masterDeck];
@@ -33,39 +33,45 @@ function renderShuffledDeck() {
   while (tempDeck.length) {
     const rndIdx = Math.floor(Math.random() * tempDeck.length);
     shuffledDeck.push(tempDeck.splice(rndIdx, 1)[0]);
-  }
+  };
   return shuffledDeck;
-}
+};
 
 // renderShuffledDeck();
 
 function dealPlayerCards() {
   playerHand = shuffledDeck.splice(-2, 2);
   return playerHand;
-}
+};
 
 function dealDealerCards() {
   dealerHand = shuffledDeck.splice(-2, 2);
   return dealerHand;
-}
+};
+
+// function dealCards(hand) {
+//   // let hand;
+//   hand = shuffledDeck.splice(-2, 2);
+//   return hand;
+// };
 
 function gameStart() {
   renderShuffledDeck();
   dealPlayerCards();
   dealDealerCards();
-}
+};
 
 function playerHit() {
   let newPlayerHand = playerHand.concat(shuffledDeck.splice(-1, 1));
   playerHand = newPlayerHand;
   return playerHand;
-}
+};
 
 function dealerHit() {
   let newDealerHand = dealerHand.concat(shuffledDeck.splice(-1, 1));
   dealerHand = newDealerHand;
   return dealerHand;
-}
+};
 
 //stand ends player turn, starts dealer turn
 
@@ -73,6 +79,10 @@ function getWinner() {
   
 }
 
-let playerHandValue = playerHand.reduce(function(a, b) {
-  return a + b;
-}, 0)
+function handTotal(hand) {
+  let total = 0;
+  hand.forEach(function(card) {
+    total += card.value
+  });
+  return total;
+};
