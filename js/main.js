@@ -62,6 +62,14 @@ function dealDealerCards() {
   return dealerHand;
 };
 
+function handTotal(hand) {
+  let total = 0;
+  hand.forEach(function (card) {
+    total += card.value
+  });
+  return total;
+};
+
 function checkInitialWinner() {
   if (handTotal(playerHand) === 21 && handTotal(playerHand) === handTotal(dealerHand)) {
     console.log('tie game');
@@ -69,7 +77,7 @@ function checkInitialWinner() {
     console.log('Player wins with blackjack')
   } else if (handTotal(dealerHand) === 21) {
     console.log('dealer wins with blackjack')
-  };
+  }
 };
 
 function gameStart() {
@@ -77,14 +85,6 @@ function gameStart() {
   dealPlayerCards();
   dealDealerCards();
   checkInitialWinner();
-};
-
-function handTotal(hand) {
-  let total = 0;
-  hand.forEach(function(card) {
-    total += card.value
-  });
-  return total;
 };
 
 function checkIfBust() {
@@ -107,12 +107,20 @@ function playerHit() {
 function dealerHit() {
   let newDealerHand = dealerHand.concat(shuffledDeck.splice(-1, 1));
   dealerHand = newDealerHand;
+  //for loop adding from deck to dealer's hand. Set condition to checkIfBust()
   renderHandInContainer(dealerHand, dealerHandContainer);
   checkIfBust();
   console.log('dealer hit');
   return dealerHand;
 };
 
+function getWinner() {
+  if (handTotal(playerHand) === handTotal(dealerHand)) {
+    console.log('tie');
+  } else if (handTotal(playerHand) > handTotal(dealerHand)) {
+    console.log('player wins');
+  } else console.log('dealer wins');
+}
 
 /*----- Test Functions -----*/
 gameStart();
