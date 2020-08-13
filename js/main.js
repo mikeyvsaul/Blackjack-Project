@@ -60,7 +60,7 @@ function renderHandInContainer(hand, container) {
       }
     })
   } else {
-    cardsHtml = hand.reduce(function (html, card) {
+    cardsHtml = hand.reduce(function(html, card) {
       return html + `<div class="card ${card.face}"></div>`;
     }, '');
   }
