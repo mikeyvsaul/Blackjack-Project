@@ -119,7 +119,7 @@ function dealerHit() {
   // dealerHand = newDealerHand;
   // renderHandInContainer(dealerHand, dealerHandContainer);
   // checkIfBust();
-  while (handTotal(dealerHand) <= 17) {
+  while (handTotal(dealerHand) < 17) {
     let newDealerHand = dealerHand.concat(shuffledDeck.splice(-1, 1));
     dealerHand = newDealerHand;
     renderHandInContainer(dealerHand, dealerHandContainer);
