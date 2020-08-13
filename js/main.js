@@ -27,8 +27,8 @@ resetButton.addEventListener('click', gameStart);
 /*----- functions -----*/
 function buildMasterDeck() {
   const deck = [];
-  suits.forEach(function (suit) {
-    ranks.forEach(function (rank) {
+  suits.forEach(function(suit) {
+    ranks.forEach(function(rank) {
       deck.push({
         face: `${suit}${rank}`,
         value: Number(rank) || (rank === 'A' ? 11 : 10)
@@ -52,7 +52,7 @@ function renderHandInContainer(hand, container) {
   container.innerHTML = '';
   let cardsHtml = ``;
   if (container === dealerHandContainer && hand.length === 2) {
-    hand.forEach(function (card, idx) {
+    hand.forEach(function(card, idx) {
       if (idx === 1) {
         cardsHtml += `<div class="card back-red"></div>`;
       } else {
@@ -64,7 +64,6 @@ function renderHandInContainer(hand, container) {
       return html + `<div class="card ${card.face}"></div>`;
     }, '');
   }
-
   container.innerHTML = cardsHtml;
 }
 
@@ -86,13 +85,13 @@ function handTotal(hand) {
     if (card.value === 11 && total > 10 && total !== 21 && hand.length > 2) {
       card.value = 1;
     }
-    total += card.value
+    total += card.value;
   });
   return total;
 }
 
 function renderHandValues() {
-  let dealerHandTotal = dealerHand.length === 2 ? dealerHand[0].value : handTotal(dealerHand);
+  let dealerHandTotal = (dealerHand.length === 2 && handTotal(playerHand) <= 21) ? dealerHand[0].value : handTotal(dealerHand);
   playerValue.innerHTML = `Player hand is ${handTotal(playerHand)}`;
   dealerValue.innerHTML = `Dealer hand is ${dealerHandTotal}`;
 }
@@ -183,23 +182,13 @@ function getWinner() {
 }
 
 
-
-/* Ace is equal to 11 unless the total hand is going to bust
-which means, we need the total hand
-
-loop through each hand, if one of the card.value = 11
-check if totalHand is > 21
-keep subtracting 10 as there are aces until handtotal is not bust
- */
-
 /*----- Test Functions -----*/
-// gameStart();
 
 // function dealPlayerCards() {
 //   playerHand = [
+//     { face: "c10", value: 10 },
 //     { face: "hA", value: 11 },
-//     // { face: "cJ", value: 10 },
-//     { face: "dA", value: 11 }
+//     // { face: "dA", value: 11 }
 //   ]
 //   renderHandInContainer(playerHand, playerHandContainer);
 //   // getWinner();
