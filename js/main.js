@@ -12,11 +12,14 @@ let dealerHand;
 /*----- cached element references -----*/
 const playerHandContainer = document.getElementById('player-card-container');
 const dealerHandContainer = document.getElementById('dealer-card-container');
+const playerValue = document.getElementById('player-value');
+const dealerValue = document.getElementById('dealer-value');
 const messageBox = document.querySelector('message');
 
 /*----- event listeners -----*/
 document.getElementById('hit').addEventListener('click', playerHit);
 document.getElementById('stand').addEventListener('click', dealerHit);
+document.getElementById('game-button').addEventListener('click', gameStart);
 
 /*----- functions -----*/
 function buildMasterDeck() {
@@ -101,17 +104,22 @@ function playerHit() {
   renderHandInContainer(playerHand, playerHandContainer);
   console.log('hit');
   checkIfBust();
-  return playerHand;
+  // return playerHand;
 };
 
 function dealerHit() {
-  let newDealerHand = dealerHand.concat(shuffledDeck.splice(-1, 1));
-  dealerHand = newDealerHand;
-  //for loop adding from deck to dealer's hand. Set condition to checkIfBust()
-  renderHandInContainer(dealerHand, dealerHandContainer);
+  // let newDealerHand = dealerHand.concat(shuffledDeck.splice(-1, 1));
+  // dealerHand = newDealerHand;
+  // renderHandInContainer(dealerHand, dealerHandContainer);
+  // checkIfBust();
+  while (handTotal(dealerHand) <= 17) {
+    let newDealerHand = dealerHand.concat(shuffledDeck.splice(-1, 1));
+    dealerHand = newDealerHand;
+    renderHandInContainer(dealerHand, dealerHandContainer);
+  }
   checkIfBust();
-  console.log('dealer hit');
-  return dealerHand;
+  getWinner();
+  // return dealerHand;
 };
 
 function getWinner() {
@@ -119,7 +127,9 @@ function getWinner() {
     console.log('tie');
   } else if (handTotal(playerHand) > handTotal(dealerHand)) {
     console.log('player wins');
-  } else console.log('dealer wins');
+  } else if (handTotal(dealerHand) > handTotal(playerHand)) {
+    console.log('dealer wins');
+  };
 }
 
 /*----- Test Functions -----*/

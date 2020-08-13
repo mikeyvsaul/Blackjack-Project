@@ -18,13 +18,13 @@ body {
 .card-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
   /* border: 4px dotted grey; */
 }
 
 .dealer {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr 1fr;
   justify-items: center;
 }
 
@@ -43,7 +43,7 @@ body {
   align-items: center;
 }
 
-img {
+/* img {
   height: 65%;
   width: 30%;
-}
+} */
