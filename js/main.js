@@ -53,7 +53,7 @@ function renderHandInContainer(hand, container) {
   let cardsHtml = ``;
   if (container === dealerHandContainer && hand.length === 2) {
     hand.forEach(function(card, idx) {
-      if (idx === 1) {
+      if (idx === 0) {
         cardsHtml += `<div class="card back-red"></div>`;
       } else {
         cardsHtml += `<div class="card ${card.face}"></div>`;
@@ -91,7 +91,7 @@ function handTotal(hand) {
 }
 
 function renderHandValues() {
-  let dealerHandTotal = (dealerHand.length === 2 && handTotal(playerHand) <= 21) ? dealerHand[0].value : handTotal(dealerHand);
+  let dealerHandTotal = (dealerHand.length === 2 && handTotal(playerHand) <= 21) ? dealerHand[1].value : handTotal(dealerHand);
   playerValue.innerHTML = `Player hand is ${handTotal(playerHand)}`;
   dealerValue.innerHTML = `Dealer hand is ${dealerHandTotal}`;
 }
