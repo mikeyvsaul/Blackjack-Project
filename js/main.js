@@ -14,9 +14,9 @@ const playerHandContainer = document.getElementById('player-card-container');
 const dealerHandContainer = document.getElementById('dealer-card-container');
 const playerValue = document.getElementById('player-value');
 const dealerValue = document.getElementById('dealer-value');
+const resetButton = document.getElementById('game-button');
 const standButton = document.getElementById('stand');
 const hitButton = document.getElementById('hit');
-const resetButton = document.getElementById('game-button');
 const messageBox = document.querySelector('.message');
 
 /*----- event listeners -----*/
@@ -36,7 +36,7 @@ function buildMasterDeck() {
     });
   });
   return deck;
-};
+}
 
 function createShuffledDeck() {
   const tempDeck = [...masterDeck];
@@ -46,7 +46,7 @@ function createShuffledDeck() {
     shuffledDeck.push(tempDeck.splice(rndIdx, 1)[0]);
   };
   return shuffledDeck;
-};
+}
 
 function renderHandInContainer(hand, container) {
   container.innerHTML = '';
@@ -60,87 +60,127 @@ function dealPlayerCards() {
   playerHand = shuffledDeck.splice(-2, 2);
   renderHandInContainer(playerHand, playerHandContainer);
   return playerHand;
-};
+}
 
 function dealDealerCards() {
   dealerHand = shuffledDeck.splice(-2, 2);
   renderHandInContainer(dealerHand, dealerHandContainer);
   return dealerHand;
-};
+}
 
-function handTotal(hand) {
+function handTotal(hand, playerOrDealer) {
   let total = 0;
+  let playerAces = 0;
+  let dealerAces = 0;
   hand.forEach(function (card) {
     total += card.value
   });
+  // loop through each hand, if one of the card.value = 11
+  // check if totalHand is > 21
+  // keep subtracting 10 as there are aces until handtotal is not bust
+  playerHand.forEach(function (card) {
+    if (card.value === 11) {
+      playerAces += 1;
+    }
+  })
+  if (playerAces > 0) {
+    let subtractedTotal = 0;
+    for (let i = 0; i < playerAces; i++) {
+      subtractedTotal += 10;
+    }
+  }
+  total -= playerOrDealer = 'player' ? playerAces : dealerAces;
   return total;
-};
+}
+
+function renderHandValues() {
+  playerValue.innerHTML = `Player hand is ${handTotal(playerHand)}`;
+  dealerValue.innerHTML = `Dealer hand is ${handTotal(dealerHand)}`;
+}
 
 function checkInitialWinner() {
   if (handTotal(playerHand) === 21 && handTotal(playerHand) === handTotal(dealerHand)) {
-    console.log('tie game');
+    hitButton.disabled = true;
+    standButton.disabled = true;
+    messageBox.innerHTML = `Tie Game! Two Blackjacks? Who'da thunk?`;
   } else if (handTotal(playerHand) === 21) {
-    console.log('Player wins with blackjack')
+    hitButton.disabled = true;
+    standButton.disabled = true;
+    messageBox.innerHTML = `Player wins with Blackjack!`;
   } else if (handTotal(dealerHand) === 21) {
-    console.log('dealer wins with blackjack')
+    hitButton.disabled = true;
+    standButton.disabled = true;
+    messageBox.innerHTML = `Dealer wins with Blackjack!`;
   }
-};
+}
 
 function gameStart() {
+  playerHand = [];
+  dealerHand = [];
   createShuffledDeck();
   dealPlayerCards();
   dealDealerCards();
+  renderHandValues();
   checkInitialWinner();
-};
+}
 
 function checkIfBust() {
   if (handTotal(playerHand) > 21) {
     hitButton.disabled = true;
     standButton.disabled = true;
-    messageBox.innerHTML = `Player busts with ${handTotal(playerHand)}! Play again?`
+    messageBox.innerHTML = `Player busts with ${handTotal(playerHand)}! Play again?`;
   } else if (handTotal(dealerHand) > 21) {
     hitButton.disabled = true;
     standButton.disabled = true;
-    messageBox.innerHTML = `Dealer busts with ${handTotal(dealerHand)}! Play again?`
+    messageBox.innerHTML = `Dealer busts with ${handTotal(dealerHand)}! Play again?`;
   }
-};
+}
 
 function playerHit() {
   let newPlayerHand = playerHand.concat(shuffledDeck.splice(-1, 1));
   playerHand = newPlayerHand;
   renderHandInContainer(playerHand, playerHandContainer);
-  console.log('hit');
   checkIfBust();
-  // return playerHand;
-};
+  renderHandValues();
+}
 
 function dealerHit() {
-  // let newDealerHand = dealerHand.concat(shuffledDeck.splice(-1, 1));
-  // dealerHand = newDealerHand;
-  // renderHandInContainer(dealerHand, dealerHandContainer);
-  // checkIfBust();
-  while (handTotal(dealerHand) < 17) {
+  while (handTotal(dealerHand) < 17 && handTotal(dealerHand) < handTotal(playerHand)) {
     let newDealerHand = dealerHand.concat(shuffledDeck.splice(-1, 1));
     dealerHand = newDealerHand;
     renderHandInContainer(dealerHand, dealerHandContainer);
   }
   checkIfBust();
+  renderHandValues();
   getWinner();
-  // return dealerHand;
-};
+}
 
 function getWinner() {
   if (handTotal(playerHand) === handTotal(dealerHand)) {
-    console.log('tie');
+    hitButton.disabled = true;
+    standButton.disabled = true;
+    messageBox.innerHTML = `Tie game at ${handTotal(playerHand)} each.`;
   } else if (handTotal(playerHand) > handTotal(dealerHand)) {
-    console.log('player wins');
+    hitButton.disabled = true;
+    standButton.disabled = true;
+    messageBox.innerHTML = `Player wins with hand of ${handTotal(playerHand)}!`;
   } else if (handTotal(dealerHand) > handTotal(playerHand)) {
-    console.log('dealer wins');
+    hitButton.disabled = true;
+    standButton.disabled = true;
+    messageBox.innerHTML = `Dealer wins with hand of ${handTotal(dealerHand)}!`;
   };
 }
 
+/* Ace is equal to 11 unless the total hand is going to bust
+which means, we need the total hand
+
+loop through each hand, if one of the card.value = 11
+check if totalHand is > 21 
+keep subtracting 10 as there are aces until handtotal is not bust
+ */
+
 /*----- Test Functions -----*/
-gameStart();
+// gameStart();
 
 // function dealPlayerCards() {
 //   playerHand = [
