@@ -14,12 +14,15 @@ const playerHandContainer = document.getElementById('player-card-container');
 const dealerHandContainer = document.getElementById('dealer-card-container');
 const playerValue = document.getElementById('player-value');
 const dealerValue = document.getElementById('dealer-value');
-const messageBox = document.querySelector('message');
+const standButton = document.getElementById('stand');
+const hitButton = document.getElementById('hit');
+const resetButton = document.getElementById('game-button');
+const messageBox = document.querySelector('.message');
 
 /*----- event listeners -----*/
-document.getElementById('hit').addEventListener('click', playerHit);
-document.getElementById('stand').addEventListener('click', dealerHit);
-document.getElementById('game-button').addEventListener('click', gameStart);
+hitButton.addEventListener('click', playerHit);
+standButton.addEventListener('click', dealerHit);
+resetButton.addEventListener('click', gameStart);
 
 /*----- functions -----*/
 function buildMasterDeck() {
@@ -92,9 +95,13 @@ function gameStart() {
 
 function checkIfBust() {
   if (handTotal(playerHand) > 21) {
-    console.log('player busts');
+    hitButton.disabled = true;
+    standButton.disabled = true;
+    messageBox.innerHTML = `Player busts with ${handTotal(playerHand)}! Play again?`
   } else if (handTotal(dealerHand) > 21) {
-    console.log('dealer busts');
+    hitButton.disabled = true;
+    standButton.disabled = true;
+    messageBox.innerHTML = `Dealer busts with ${handTotal(dealerHand)}! Play again?`
   }
 };
 
