@@ -68,28 +68,14 @@ function dealDealerCards() {
   return dealerHand;
 }
 
-function handTotal(hand, playerOrDealer) {
+function handTotal(hand) {
   let total = 0;
-  let playerAces = 0;
-  let dealerAces = 0;
   hand.forEach(function (card) {
+    if (card.value === 11 && total > 10 && total !== 21) {
+      card.value = 1;
+    }
     total += card.value
   });
-  // loop through each hand, if one of the card.value = 11
-  // check if totalHand is > 21
-  // keep subtracting 10 as there are aces until handtotal is not bust
-  playerHand.forEach(function (card) {
-    if (card.value === 11) {
-      playerAces += 1;
-    }
-  })
-  if (playerAces > 0) {
-    let subtractedTotal = 0;
-    for (let i = 0; i < playerAces; i++) {
-      subtractedTotal += 10;
-    }
-  }
-  total -= playerOrDealer = 'player' ? playerAces : dealerAces;
   return total;
 }
 
@@ -182,15 +168,16 @@ keep subtracting 10 as there are aces until handtotal is not bust
 /*----- Test Functions -----*/
 // gameStart();
 
-// function dealPlayerCards() {
-//   playerHand = [
-//     { face: "hA", value: 11 },
-//     { face: "cJ", value: 10 }
-//   ]
-//   renderHandInContainer(playerHand, playerHandContainer);
-//   // getWinner();
-//   return playerHand;
-// };
+function dealPlayerCards() {
+  playerHand = [
+    { face: "hA", value: 11 },
+    // { face: "cJ", value: 10 },
+    { face: "dA", value: 11 }
+  ]
+  renderHandInContainer(playerHand, playerHandContainer);
+  // getWinner();
+  return playerHand;
+};
 
 // function dealDealerCards() {
 //   dealerHand = [
