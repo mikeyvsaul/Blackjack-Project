@@ -44,7 +44,7 @@ function createShuffledDeck() {
   while (tempDeck.length) {
     const rndIdx = Math.floor(Math.random() * tempDeck.length);
     shuffledDeck.push(tempDeck.splice(rndIdx, 1)[0]);
-  };
+  }
   return shuffledDeck;
 }
 
@@ -52,7 +52,7 @@ function renderHandInContainer(hand, container) {
   container.innerHTML = '';
   let cardsHtml = ``;
   if (container === dealerHandContainer && hand.length === 2) {
-    hand.forEach(function(card, idx) {
+    hand.forEach(function (card, idx) {
       if (idx === 1) {
         cardsHtml += `<div class="card back-red"></div>`;
       } else {
@@ -64,7 +64,7 @@ function renderHandInContainer(hand, container) {
       return html + `<div class="card ${card.face}"></div>`;
     }, '');
   }
-  
+
   container.innerHTML = cardsHtml;
 }
 
@@ -99,17 +99,14 @@ function renderHandValues() {
 
 function checkInitialWinner() {
   if (handTotal(playerHand) === 21 && handTotal(playerHand) === handTotal(dealerHand)) {
-    hitButton.disabled = true;
-    standButton.disabled = true;
-    messageBox.innerHTML = `Tie Game! Two Blackjacks? Who'da thunk?`;
+    disablePlayer(`Tie Game! Two Blackjacks? Who'da thunk?`);
+    showDealerCards();
   } else if (handTotal(playerHand) === 21) {
-    hitButton.disabled = true;
-    standButton.disabled = true;
-    messageBox.innerHTML = `Player wins with Blackjack!`;
+    disablePlayer(`Player wins with Blackjack!`);
+    showDealerCards();
   } else if (handTotal(dealerHand) === 21) {
-    hitButton.disabled = true;
-    standButton.disabled = true;
-    messageBox.innerHTML = `Dealer wins with Blackjack!`;
+    disablePlayer(`Dealer wins with Blackjack!`);
+    showDealerCards();
   }
 }
 
@@ -122,17 +119,36 @@ function gameStart() {
   dealDealerCards();
   renderHandValues();
   checkInitialWinner();
+  enablePlayer();
+}
+
+function disablePlayer(message) {
+  hitButton.disabled = true;
+  standButton.disabled = true;
+  messageBox.innerHTML = message;
+}
+
+function enablePlayer() {
+  hitButton.disabled = false;
+  standButton.disabled = false;
+}
+
+function showDealerCards() {
+  let html = ``;
+  dealerHand.forEach(function (card) {
+    html += `<div class="card ${card.face}"></div>`;
+  });
+  dealerHandContainer.innerHTML = html;
+  dealerValue.innerHTML = `Dealer hand is ${handTotal(dealerHand)}`;
 }
 
 function checkIfBust() {
   if (handTotal(playerHand) > 21) {
-    hitButton.disabled = true;
-    standButton.disabled = true;
-    messageBox.innerHTML = `Player busts with ${handTotal(playerHand)}! Play again?`;
+    disablePlayer(`Player busts with ${handTotal(playerHand)}! Play again?`);
+    showDealerCards();
   } else if (handTotal(dealerHand) > 21) {
-    hitButton.disabled = true;
-    standButton.disabled = true;
-    messageBox.innerHTML = `Dealer busts with ${handTotal(dealerHand)}! Play again?`;
+    disablePlayer(`Dealer busts with ${handTotal(dealerHand)}! Play again?`);
+    showDealerCards();
   }
 }
 
@@ -157,27 +173,22 @@ function dealerHit() {
 
 function getWinner() {
   if (handTotal(playerHand) === handTotal(dealerHand)) {
-    disablePlayer();
-    messageBox.innerHTML = `Tie game at ${handTotal(playerHand)} each.`;
-  } else if (handTotal(playerHand) > handTotal(dealerHand)) {
-    disablePlayer();
-    messageBox.innerHTML = `Player wins with hand of ${handTotal(playerHand)}!`;
-  } else if (handTotal(dealerHand) > handTotal(playerHand)) {
-    hitButton.disabled = true;
-    standButton.disabled = true;
-    messageBox.innerHTML = `Dealer wins with hand of ${handTotal(dealerHand)}!`;
-  };
+    disablePlayer(`Tie game at ${handTotal(playerHand)} each.`);
+  } else if (handTotal(playerHand) > handTotal(dealerHand) && handTotal(playerHand) <= 21) {
+    disablePlayer(`Player wins with hand of ${handTotal(playerHand)}!`);
+  } else if (handTotal(dealerHand) > handTotal(playerHand) && handTotal(dealerHand) <= 21) {
+    disablePlayer(`Dealer wins with hand of ${handTotal(dealerHand)}!`);
+  }
+  showDealerCards();
 }
 
-function disablePlayer() {
-  hitButton.disabled = true;
-  standButton.disabled = true;
-}
+
+
 /* Ace is equal to 11 unless the total hand is going to bust
 which means, we need the total hand
 
 loop through each hand, if one of the card.value = 11
-check if totalHand is > 21 
+check if totalHand is > 21
 keep subtracting 10 as there are aces until handtotal is not bust
  */
 
