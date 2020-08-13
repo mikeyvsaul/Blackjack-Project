@@ -83,7 +83,7 @@ function dealDealerCards() {
 function handTotal(hand) {
   let total = 0;
   hand.forEach(function (card) {
-    if (card.value === 11 && total > 10 && total !== 21) {
+    if (card.value === 11 && total > 10 && total !== 21 && hand.length > 2) {
       card.value = 1;
     }
     total += card.value
@@ -114,12 +114,12 @@ function gameStart() {
   playerHand = [];
   dealerHand = [];
   messageBox.innerHTML = '';
+  enablePlayer();
   createShuffledDeck();
   dealPlayerCards();
   dealDealerCards();
   renderHandValues();
   checkInitialWinner();
-  enablePlayer();
 }
 
 function disablePlayer(message) {
