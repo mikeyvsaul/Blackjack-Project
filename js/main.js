@@ -192,26 +192,4 @@ function init() {
 }
 
 init();
-/*----- Test Functions -----*/
 
-// function dealPlayerCards() {
-//   playerHand = [
-//     // { face: "c10", value: 10 },
-//     { face: "hA", value: 11 },
-//     { face: "dA", value: 11 }
-//   ]
-//   renderHandInContainer(playerHand, playerHandContainer);
-//   // getWinner();
-//   return playerHand;
-// };
-
-// function dealDealerCards() {
-//   dealerHand = [
-//     { face: "hA", value: 11 },
-//     // { face: "cJ", value: 10 },
-//      { face: "dA", value: 11 }
-//   ]
-//   renderHandInContainer(dealerHand, dealerHandContainer);
-//   // getWinner();
-//   return dealerHand;
-// };
