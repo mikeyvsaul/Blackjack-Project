@@ -82,7 +82,7 @@ function dealDealerCards() {
 function handTotal(hand) {
   let total = 0;
   hand.forEach(function (card) {
-    if (card.value === 11 && total > 10 && total !== 21 && hand.length > 2) {
+    if (card.value === 11 && total > 10 && total !== 21 && hand.length >= 2) {
       card.value = 1;
     }
     total += card.value;
@@ -113,6 +113,9 @@ function gameStart() {
   playerHand = [];
   dealerHand = [];
   messageBox.innerHTML = '';
+  resetButton.innerHTML = 'Reset Game';
+  hitButton.style.display = 'block';
+  standButton.style.display = 'block';
   enablePlayer();
   createShuffledDeck();
   dealPlayerCards();
@@ -181,14 +184,21 @@ function getWinner() {
   showDealerCards();
 }
 
+function init() {
+  messageBox.innerHTML = 'Start game to try your luck!';
+  resetButton.innerHTML = 'Start Game';
+  hitButton.style.display = 'none';
+  standButton.style.display = 'none';
+}
 
+init();
 /*----- Test Functions -----*/
 
 // function dealPlayerCards() {
 //   playerHand = [
-//     { face: "c10", value: 10 },
+//     // { face: "c10", value: 10 },
 //     { face: "hA", value: 11 },
-//     // { face: "dA", value: 11 }
+//     { face: "dA", value: 11 }
 //   ]
 //   renderHandInContainer(playerHand, playerHandContainer);
 //   // getWinner();
@@ -198,7 +208,8 @@ function getWinner() {
 // function dealDealerCards() {
 //   dealerHand = [
 //     { face: "hA", value: 11 },
-//     { face: "cJ", value: 10 }
+//     // { face: "cJ", value: 10 },
+//      { face: "dA", value: 11 }
 //   ]
 //   renderHandInContainer(dealerHand, dealerHandContainer);
 //   // getWinner();
