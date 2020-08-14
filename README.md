@@ -14,6 +14,7 @@ In this version of the game, the game is played with a standard 52 card deck, th
 
 ### <ins>***Screenshots***</ins>
 Mobile Version:
+
 ![alt text](https://i.imgur.com/06B3k3r.png)
 
 Desktop Version (screens wider than 768px):
