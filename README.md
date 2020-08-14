@@ -13,9 +13,11 @@ In this version of the game, the game is played with a standard 52 card deck, th
 
 
 ### <ins>***Screenshots***</ins>
-Mobile Version: (https://i.imgur.com/06B3k3r.png)
+Mobile Version:
+![alt text](https://i.imgur.com/06B3k3r.png)
 
-Desktop Version: (https://i.imgur.com/PO0bjvE.png)
+Desktop Version (screens wider than 768px):
+![alt text](https://i.imgur.com/PO0bjvE.png)
 
 ### <ins>***Technologies Used***</ins>
 - HTML
@@ -30,6 +32,6 @@ https://mikeyvsaul.github.io/Blackjack-Project/
 
 ### <ins>***Next Steps***</ins>
 - Add a win/loss counter
-- All for betting
+- Allow for betting
 - Add animations and sound effects
 - Add advance rules and multiple decks
