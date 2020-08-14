@@ -2,17 +2,19 @@ html, * {
   box-sizing: border-box;
 }
 
-
 body {
   margin: 0;
   font-family: Helvetica;
+  color: white;
   font-size: 20px;
   text-align: center;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto auto auto;
   justify-items: stretch;
-  background-color: rgb(1, 109, 41);
+  /* Background created with https://cssgradient.io/ */
+  background: rgb(62,142,54);
+  background: linear-gradient(90deg, rgba(62,142,54,1) 0%, rgba(69,186,125,1) 50%, rgba(43,116,75,1) 100%);
 }
 
 h2 {
@@ -20,7 +22,6 @@ h2 {
   justify-content: center;
   color: white;
   text-shadow: 2px 2px 6px black;
-  /* background-color: red; */
   background-image: url(https://i.imgur.com/U31olCd.jpg);
   background-position: left center;
   margin: 0;
@@ -31,6 +32,7 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin: 0;
 }
 
 .dealer {
@@ -39,11 +41,19 @@ h2 {
   justify-items: center;
 }
 
+#dealer-value {
+  padding: 10px;
+}
+
 .middle {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: auto auto;
   justify-items: center;
   align-items: center;
+}
+
+.message {
+  padding: 10px;
 }
 
 .player {
@@ -52,4 +62,56 @@ h2 {
   grid-template-rows: 1fr;
   justify-items: center;
   align-items: center;
+}
+
+#player-value {
+  padding: 10px;
+}
+
+/*Button created with https://www.bestcssbuttongenerator.com/*/
+button {
+  background-color: #1624e0;
+	border-radius: 28px;
+	border: 1px solid #1624e0;
+	display: inline-block;
+	cursor: pointer;
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 17px;
+	padding: 16px 31px;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #2f6627;
+}
+
+.actionbuttons {
+  display: inline-flex;
+}
+
+#hit {
+  background-color: green;
+  border: 3px solid black;
+}
+
+#stand {
+  background-color: red;
+  border: 3px solid black;
+}
+
+@media only screen and (min-width: 768px)
+{
+  body {
+    font-size: 25px;
+  }
+
+  button:hover {
+    background-color: purple;
+  }
+
+  #hit:hover {
+    background-color: chartreuse;
+  }
+
+  #stand:hover {
+    background-color: orange;
+  }
 }
